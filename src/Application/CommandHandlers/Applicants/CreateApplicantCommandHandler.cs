@@ -15,6 +15,9 @@ namespace Application.CommandHandlers.Applicants
             try
             {
                 var applicant = request.Request.ToApplicantEntity();
+
+                var exist =await _unitOfWork.Applicants.GetByEmail(applicant.EmailAdress , cancellationToken);
+                if (exist!=null) throw new BussniesLogicValidationException("Email address already exist.");
                 await _unitOfWork.Applicants.AddAsync(applicant, cancellationToken);
                 await _unitOfWork.SaveChangesAsync(cancellationToken);
                 return new BaseResponseDto<ApplicantDto>
@@ -24,8 +27,9 @@ namespace Application.CommandHandlers.Applicants
                     Success = true
                 };
             }
-            catch(Exception)
+            catch(Exception e)
             {
+                if (e is BussniesLogicValidationException) throw;
                 throw new TransactionException("Failed to create the applicant.");
             } 
         }

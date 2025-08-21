@@ -28,8 +28,9 @@ namespace Application.CommandHandlers.Applicants
                     Success = true
                 };
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                if (e is NotFoundException) throw;
                 throw new TransactionException("Failed to delete the applicant.");
             }
         }

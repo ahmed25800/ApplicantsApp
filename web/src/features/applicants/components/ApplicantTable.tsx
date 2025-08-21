@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import { Table, Button, Popconfirm } from 'antd';
 import type { Applicant } from '../../../types/Applicant';
 import ApplicantForm from './ApplicantForm';
-import { useApplicantStore } from '../store';
+import useApplicantStore  from '../store';
 
 interface Props {
   applicants: Applicant[];
 }
 
-const ApplicantTable: React.FC<Props> = ({ applicants }) => {
+const ApplicantTable: React.FC<Props> = ({ applicants  }) => {
   const { deleteApplicant } = useApplicantStore();
   const [editingApplicant, setEditingApplicant] = useState<Applicant | undefined>();
   const [modalVisible, setModalVisible] = useState(false);
@@ -27,7 +27,7 @@ const ApplicantTable: React.FC<Props> = ({ applicants }) => {
     { title: 'Age', dataIndex: 'age', key: 'age' },
     { title: 'Hired', dataIndex: 'hired', key: 'hired', render: (h: boolean) => (h ? 'Yes' : 'No') },
     {
-      title: 'Actions',
+      title: '',
       key: 'actions',
       render: (_: any, record: Applicant) => (
         <>

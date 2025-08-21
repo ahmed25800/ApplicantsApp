@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import { Modal, Form, Input, InputNumber, Checkbox, message } from 'antd';
 import type { Applicant } from '../../../types/Applicant';
-import { useApplicantStore } from '../store';
+import  useApplicantStore  from '../store';
 
 interface Props {
   visible: boolean;
   onClose: () => void;
-  editingApplicant?: Applicant;
+  editingApplicant?: Applicant | null;
 }
 
 const ApplicantForm: React.FC<Props> = ({ visible, onClose, editingApplicant }) => {
@@ -29,14 +29,13 @@ const ApplicantForm: React.FC<Props> = ({ visible, onClose, editingApplicant }) 
       }
       onClose();
     } catch (err) {
-      console.log(err);
     }
   };
 
   return (
     <Modal
       title={editingApplicant ? 'Edit Applicant' : 'Add Applicant'}
-      visible={visible}
+      open={visible}
       onOk={handleOk}
       onCancel={onClose}
       okText="Save"

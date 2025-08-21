@@ -11,5 +11,8 @@ public class ApplicantRepository(AppDbContext _context) : IApplicantRepository
     public async Task AddAsync(Applicant applicant, CancellationToken ct) => await _context.Applicants.AddAsync(applicant, ct);
     public Task DeleteAsync(Applicant applicant, CancellationToken ct) { _context.Applicants.Remove(applicant); return Task.CompletedTask; }
     public Task<int> SaveChangesAsync(CancellationToken ct) => _context.SaveChangesAsync(ct);
+
+    public async Task<Applicant?> GetByEmail(string email, CancellationToken ct) => await _context.Applicants.FirstOrDefaultAsync(a => a.EmailAdress.Equals(email), ct);
+
 }
 

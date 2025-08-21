@@ -17,6 +17,9 @@ namespace Application.CommandHandlers.Applicants
             {
                 throw new NotFoundException("Applicant not found.");
             }
+            var exist = await _unitOfWork.Applicants.GetByEmail(request.Request.EmailAdress, cancellationToken);
+            if (exist != null && exist.Id != applicant.Id) throw new BussniesLogicValidationException("Email address already exist.");
+
             try
             {
                 applicant.FromApplicantRequest(request.Request);
@@ -30,6 +33,7 @@ namespace Application.CommandHandlers.Applicants
             }
             catch(Exception e)
             {
+                if (e is BussniesLogicValidationException || e is NotFoundException) throw;
                 throw new TransactionException("Failed to update the applicant.");
             }
             

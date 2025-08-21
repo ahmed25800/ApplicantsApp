@@ -1,19 +1,20 @@
 import api from './axiosConfig';
 import type { Applicant } from '../types/Applicant';
+import type { BaseResponse } from '../types/common/BaseResponse';
 
-const API_URL = '/applicants'; 
+const ENDPOINT = '/applicants'; 
 export const getApplicants = async () => {
-  return api.get<Applicant[]>(API_URL);
+  return (await api.get<Applicant[]>(ENDPOINT));
 };
 
 export const createApplicant = async (data: Applicant) => {
-  return api.post<Applicant>(API_URL, data);
+  return await api.post<BaseResponse<Applicant>>(ENDPOINT, data);
 };
 
 export const updateApplicant = async (id: number, data: Applicant) => {
-  return api.put<Applicant>(`${API_URL}/${id}`, data);
+  return await api.put<BaseResponse<Applicant>>(`${ENDPOINT}/${id}`, data);
 };
 
 export const deleteApplicant = async (id: number) => {
-  return api.delete(`${API_URL}/${id}`);
+  return await api.delete<BaseResponse<Applicant>>(`${ENDPOINT}/${id}`);
 };

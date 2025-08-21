@@ -1,5 +1,6 @@
 ﻿using Application.Commands.Applicants;
 using Application.Dtos.Applicants;
+using Application.Dtos.Common;
 using Application.Queries.Applicants;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -67,7 +68,7 @@ public class ApplicantsController : ControllerBase
     /// <response code="200">Returns the created applicant.</response>
     /// <response code="400">If the request is invalid.</response>
     [HttpPost]
-    [ProducesResponseType(typeof(ApplicantDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(BaseResponseDto<ApplicantDto>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> Create([FromBody] ApplicantBaseRequest request)
     {
@@ -97,7 +98,7 @@ public class ApplicantsController : ControllerBase
     /// <response code="400">If the request is invalid.</response>
     /// <response code="404">If the applicant is not found.</response>
     [HttpPut("{id:int}")]
-    [ProducesResponseType(typeof(ApplicantDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(BaseResponseDto<ApplicantDto>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Update(int id, [FromBody] ApplicantBaseRequest request)
@@ -114,7 +115,7 @@ public class ApplicantsController : ControllerBase
     /// <response code="200">Returns the deleted applicant details.</response>
     /// <response code="404">If the applicant is not found.</response>
     [HttpDelete("{id:int}")]
-    [ProducesResponseType(typeof(ApplicantDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(BaseResponseDto<ApplicantDto>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Delete(int id)
     {
