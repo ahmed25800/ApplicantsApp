@@ -36,7 +36,7 @@ The solution follows **Clean Architecture** principles and consists of:
 You have two options for setting up the database:  
 
 1. **Using the provided .bak file**  
-   - Restore the database from the `.bak` file available [here](./Docs/ApplicantsDB).  
+   - Restore the database from the `.bak` file available [here](./docs/ApplicantsDB).  
 
 2. **Using EF Core migrations**  
    - Update the connection string in `src/Api/appsettings.json`.  
